@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getResult(city: String) {
-        val key = "691959e22c56e204cd2720e98465797d" // Ключ из методички
+        val key = "691959e22c56e204cd2720e98465797d"
         val url = "https://api.openweathermap.org/data/2.5/weather?q="+city+"&appid="+key+"&units=metric&lang=ru"
 
         val queue = Volley.newRequestQueue(this)
@@ -56,22 +56,17 @@ class MainActivity : AppCompatActivity() {
             url,
             { response ->
                 try {
-                    // Парсинг корневого JSON-объекта
                     val obj = JSONObject(response)
 
-                    // Извлечение данных объекта "main" (температура, давление)
                     val mainObj = obj.getJSONObject("main")
                     val temp = mainObj.getDouble("temp")
                     val pressure = mainObj.getInt("pressure")
 
-                    // Извлечение данных объекта "wind" (скорость ветра)
                     val windObj = obj.getJSONObject("wind")
                     val windSpeed = windObj.getDouble("speed")
 
-                    // Извлечение названия города из JSON
                     val nameCity = obj.getString("name")
 
-                    // Вывод в Logcat для демонстрации (как требуется в задании)
                     Log.d("MyLog", "Город: $nameCity, Температура: $temp°C, Давление: $pressure гПа, Ветер: $windSpeed м/с")
 
                     // Отображение данных на экране телефона
